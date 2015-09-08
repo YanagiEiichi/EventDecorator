@@ -46,6 +46,4 @@ require(['Event'], function(Event) {
     }, 50);
   }, 50);
 
-console.log(2);
 });
-console.log(1);
