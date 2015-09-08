@@ -27,6 +27,7 @@ void function() {
         for(var i = 0; i < arr.length; i++) {
           arr[i].apply(this, args);
         }
+        return this;
       };
       return Base.apply(this, arguments);
     };

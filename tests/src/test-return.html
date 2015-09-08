@@ -1,0 +1,15 @@
+<script src="/tests/bower_components/tester/tester.js"></script>
+<script src="/index.js"></script>
+<script>
+var A = Event(function A() {});
+
+var a = new A();
+
+var handler = function() {};
+
+Tester.assert(a.on('test', handler) === a, 'method "on" must return itself.');
+Tester.assert(a.off('test', handler) === a, 'method "off" must return itself.');
+Tester.assert(a.trigger('test') === a, 'method "trigger" must return itself.');
+
+Tester.feedback(true);
+</script>
