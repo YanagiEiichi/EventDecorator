@@ -1,0 +1,17 @@
+{
+  "name": "EventDecorator",
+  "main": "index.js",
+  "version": "0.0.0",
+  "authors": [
+    "YanagiEiichi <admin@web-tinker.com>"
+  ],
+  "description": "Event Decorator",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
