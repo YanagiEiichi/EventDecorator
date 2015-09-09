@@ -1,0 +1,45 @@
+<script src="/index.js"></script>
+<script src="/tests/bower_components/tester/tester.js"></script>
+<script>
+var A = function A() {};
+A = Event(A);
+
+var B = function B() {
+  A.call(this);
+};
+B.prototype = Object.create(A.prototype, {
+  constructor: { value: B, writable: true, configurable: true }
+});
+B = Event(B);
+
+var expection = new Tester.Expection(
+  'b.x',
+  'B.prototype.x',
+  'A.prototype.x',
+  'done'
+);
+expection.then(function() {
+  Tester.feedback(true);
+}, function() {
+  Tester.feedback(false);
+});
+
+var b = new B();
+
+A.prototype.on('x', function() {
+  expection.answer('A.prototype.x');
+  setTimeout(function() {
+    expection.answer('done');
+  }, 500);
+});
+
+B.prototype.on('x', function() {
+  expection.answer('B.prototype.x');
+});
+
+b.on('x', function() {
+  expection.answer('b.x');
+});
+
+b.trigger('x');
+</script>

@@ -1,38 +1,39 @@
 void function() {
   var Event = function(Base) {
-    var touch = function(heap, name) {
-      return name in heap ? heap[name] : (heap[name] = []);
-    };
-    var MiddleWare = function() {
-      if(!(this instanceof MiddleWare)) {
-        throw new TypeError('Constructor requires "new".');
-      }
+    var touch = function(heap, name) { return name in heap ? heap[name] : (heap[name] = []); };
+    var bindMethods = function(object) {
       var heap = {};
-      this.on = function(name, handler) {
+      object.on = function(name, handler) {
         touch(heap, name).push(handler);
         return this;
       };
-      this.off = function(name, handler) {
+      object.off = function(name, handler) {
         var arr = touch(heap, name);
         for(var i = 0; i < arr.length; i++) {
-          if(arr[i] === handler) {
-            arr.splice(i, 1);
+          if(arr[i] === handler) arr.splice(i, 1), i = 0 / 0;
+        }
+        return this;
+      };
+      object.trigger = function(name, args) {
+        var arr = touch(heap, name);
+        for(var i = 0; i < arr.length; i++) arr[i].apply(this, args);
+        for(var proto = this; proto = proto.__proto__;) {
+          if(proto.trigger) {
+            proto.trigger(name, args);
             break;
           }
         }
         return this;
       };
-      this.trigger = function(name, args) {
-        var arr = touch(heap, name);
-        for(var i = 0; i < arr.length; i++) {
-          arr[i].apply(this, args);
-        }
-        return this;
-      };
+    };
+    var EventWrapper = function EventWrapper() {
+      if(!(this instanceof EventWrapper)) throw new TypeError('Cannot call a class as a function');
+      bindMethods(this);
       return Base.apply(this, arguments);
     };
-    MiddleWare.prototype = Base.prototype;
-    return MiddleWare;
+    EventWrapper.prototype = Base.prototype;
+    bindMethods(EventWrapper.prototype);
+    return EventWrapper;
   };
   // Install
   switch(true) {
