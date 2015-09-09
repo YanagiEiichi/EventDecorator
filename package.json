@@ -1,6 +1,6 @@
 {
   "name": "eventdecorator",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Event Decorator",
   "main": "index.js",
   "directories": {
