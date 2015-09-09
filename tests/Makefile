@@ -1,4 +1,6 @@
-default: install build
+default: install build server
+
+server:
 	@cd .. && open http://127.0.0.1:8000/tests/dist/test.html && python -m SimpleHTTPServer
 
 build:
@@ -8,3 +10,4 @@ build:
 
 install:
 	@npm install
+	@bower install
