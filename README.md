@@ -13,3 +13,9 @@ a.on('test', (arg) => {
 
 a.trigger('test', [ 'test' ]);
 ```
+
+#### Run Tests
+
+```bash
+$ cd tests && make
+```
